@@ -1,15 +1,15 @@
-import { test } from '@playwright/test';
-import { homePage } from '@/pages/HomePage';
+import { test, expect } from '@playwright/test';
+import { HomePage } from '@/pages/home-page';
 
 // This is an over complication to demonstrate how we can use the test.step function to organize and document the sections of the test code.
 // In this demonstration, each actions are wrapped in a test.step class making it easier to understand the flow and outcome of a "complex test suite".
 // This also helps with the readability of the test report.
 
 test.describe('Homepage Smoke Test', { tag: '@smoke' }, () => {
-  let homePage: homePage;
+  let homePage: HomePage;
 
   test.beforeEach(async ({ page }) => {
-    homePage = new homePage(page);
+    homePage = new HomePage(page);
     await homePage.goto();
   });
 
@@ -40,7 +40,7 @@ test.describe('Homepage Smoke Test', { tag: '@smoke' }, () => {
       });
 
       await test.step('Compare the current and expected values', async () => {
-        await homePage.checkPageTitle();
+        expect(pageTitle).toBe(expectedPageTitle);
       });
     },
   );
